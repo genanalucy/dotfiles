@@ -1,0 +1,28 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "~/.config/opencode/AGENTS.md"
+  ],
+  "provider": {
+    "openai": {
+      "options": {
+        "baseURL": "https://api-cn.hi-code.cc/v1"
+      }
+    }
+  },
+  "mcp": {
+    "word-tools": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/bb/.local/share/mcp-tools/src/server.js"
+      ],
+      "environment": {
+        "MCP_TRANSPORT": "stdio"
+      }
+    }
+  },
+  "plugin": [
+    "oh-my-openagent@latest"
+  ]
+}

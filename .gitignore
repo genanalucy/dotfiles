@@ -1,0 +1,39 @@
+*.local
+*.secret
+*.secrets
+.env
+.env.*
+
+# SSH secrets and machine state
+ssh/.ssh/id_*
+ssh/.ssh/*.pem
+ssh/.ssh/*.key
+ssh/.ssh/known_hosts
+ssh/.ssh/known_hosts.old
+ssh/.ssh/authorized_keys
+ssh/.ssh/config.local
+ssh/.ssh/agent.env
+
+# Local app overrides
+opencode/.config/opencode/local.json
+ghostty/.config/ghostty/config.local
+
+# Runtime state, caches, histories
+.DS_Store
+**/.DS_Store
+**/.zcompdump*
+**/.zsh_history
+**/.bash_history
+**/.lesshst
+**/.cache/
+**/.local/share/
+**/.local/state/
+**/node_modules/
+
+# Neovim/Yazi generated state if copied accidentally
+nvim/.local/
+yazi/.local/
+
+# Backups created by scripts
+.dotfiles-backup/
+backups/

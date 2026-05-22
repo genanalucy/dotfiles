@@ -1,0 +1,9 @@
+README.md
+scripts
+tests
+.git
+.gitignore
+.stow-local-ignore
+backups
+.dotfiles-backup
+.DS_Store

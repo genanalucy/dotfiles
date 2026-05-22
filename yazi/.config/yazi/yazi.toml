@@ -1,0 +1,40 @@
+[plugin]
+
+[[plugin.prepend_previewers]]
+url = "*.md"
+run = "rich-preview"
+
+[[plugin.prepend_previewers]]
+url = "*.markdown"
+run = "rich-preview"
+
+[opener]
+glow = [
+  { run = 'glow -p "$@"', block = true, desc = "Glow", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+  { url = "*.md", use = [ "glow", "edit" ] },
+  { url = "*.markdown", use = [ "glow", "edit" ] },
+]
+
+[plugin.word]
+
+prepend_preloaders = [
+    # Office Documents
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" },
+]
+
+prepend_previewers = [
+    # Office Documents
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" },
+]
