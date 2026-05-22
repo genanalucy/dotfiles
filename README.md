@@ -60,6 +60,47 @@ stow -D -t "$HOME" zsh tmux starship ghostty opencode ssh git nvim yazi
 
 ## 新 Linux 主机同步配置
 
+### 一键自动安装和覆盖配置
+
+新机器上可以直接使用 Linux bootstrap 脚本。默认 dry-run，不会改系统：
+
+```sh
+git clone https://github.com/genanalucy/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+scripts/bootstrap-linux.sh --dry-run
+```
+
+确认输出没问题后执行真实安装：
+
+```sh
+scripts/bootstrap-linux.sh --apply
+```
+
+如果希望同时把默认 shell 切换成 zsh：
+
+```sh
+scripts/bootstrap-linux.sh --apply --change-shell
+```
+
+这个脚本会自动做这些事：
+
+- 检测 Linux 包管理器：`apt`、`dnf` 或 `pacman`。
+- 安装基础软件：`git`、`stow`、`zsh`、`tmux`、`neovim`、`curl`、`fzf`、`ripgrep` 等。
+- 安装可选组件：`starship`、Oh My Zsh、可用时安装 `yazi`。
+- 扫描 secrets 并检查 zsh 配置语法。
+- 备份已有配置到 `~/.dotfiles-backup/<timestamp>/`。
+- 把冲突的真实文件移动到 `~/.dotfiles-backup/<timestamp>/moved-before-stow/`。
+- 执行 Stow，把仓库配置链接到 `$HOME`。
+- 最后再次验证链接和配置。
+
+如果不想安装 Starship、Oh My Zsh、Yazi 这些可选组件：
+
+```sh
+scripts/bootstrap-linux.sh --apply --no-optional
+```
+
+### 手动流程
+
 ### 1. 安装基础依赖
 
 Debian / Ubuntu：
