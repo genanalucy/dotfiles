@@ -72,7 +72,11 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+  source "$ZSH/oh-my-zsh.sh"
+else
+  autoload -Uz compinit && compinit
+fi
 
 # User configuration
 
@@ -104,21 +108,25 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # ~/.zshrc
 
-eval "$(starship init zsh)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # fzf shell integration
 [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ] && source /opt/homebrew/opt/fzf/shell/completion.zsh
 [ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/shell/completion.zsh ] && source /usr/share/fzf/shell/completion.zsh
+[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
 
 # bun completions
-[ -s "/Users/bb/.bun/_bun" ] && source "/Users/bb/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
-export PATH=/Users/bb/.opencode/bin:$PATH
+[ -d "$HOME/.opencode/bin" ] && export PATH="$HOME/.opencode/bin:$PATH"
 
 # >>> opencode tmux 集成 >>>
 oc() {
@@ -129,7 +137,11 @@ oc() {
     local oc_cmd
 
     base_name=$(basename "$PWD")
-    path_hash=$(printf '%s' "$PWD" | md5 -q | cut -c1-4)
+    if command -v md5 >/dev/null 2>&1; then
+        path_hash=$(printf '%s' "$PWD" | md5 -q | cut -c1-4)
+    else
+        path_hash=$(printf '%s' "$PWD" | md5sum | cut -c1-4)
+    fi
     session_name="${base_name}-${path_hash}"
 
     port=4096
@@ -157,4 +169,4 @@ oc() {
 # <<< opencode tmux 集成 <<<
 
 # Added by Hugging Face CLI installer
-export PATH="/Users/bb/.local/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
