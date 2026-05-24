@@ -1,5 +1,5 @@
 background-opacity = 1.00
-theme = Ayu Light
+theme = Ayu
 quick-terminal-position = top
 quick-terminal-size = 40%
 keybind = global:ctrl+alt+t=toggle_quick_terminal

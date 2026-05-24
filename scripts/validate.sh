@@ -2,6 +2,7 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
 
 required_dirs=(zsh tmux starship ghostty opencode ssh git nvim yazi scripts)
 for dir in "${required_dirs[@]}"; do
